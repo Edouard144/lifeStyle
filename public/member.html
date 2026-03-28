@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard | LEGENDA GYM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF1744;
+            --secondary: #00E5FF;
+            --bg-dark: #0A0A0A;
+            --bg-gray: #1A1A1A;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-white: #FFFFFF;
+            --text-gray: #B0B0B0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-gray);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            font-family: 'Oswald';
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .nav-menu { flex-grow: 1; }
+        .nav-item {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: 0.3s;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--glass);
+            color: var(--primary);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            margin-left: 260px;
+            padding: 40px;
+            width: calc(100% - 260px);
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-text h1 { font-family: 'Oswald'; font-size: 2rem; }
+
+        /* --- Dashboard Grid --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+        }
+
+        /* --- QR / Membership Card --- */
+        .membership-status {
+            grid-column: span 1;
+            text-align: center;
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: white;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .qr-placeholder img { width: 100%; }
+
+        .status-badge {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--secondary);
+        }
+
+        /* --- Stats --- */
+        .stat-flex { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .stat-icon {
+            width: 50px; height: 50px;
+            background: var(--glass);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* --- Workout Table --- */
+        .full-width-card { grid-column: span 2; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { text-align: left; color: var(--text-gray); font-weight: 400; padding-bottom: 10px; }
+        td { padding: 15px 0; border-top: 1px solid var(--glass-border); }
+
+        .btn-renew {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .full-width-card { grid-column: span 1; }
+            .sidebar { width: 80px; padding: 20px 10px; }
+            .nav-text, .logo span { display: none; }
+            .main-content { margin-left: 80px; width: calc(100% - 80px); }
+        }
+    </style>
+</head>
+
+<script>
+    // API Base URL - change this to your deployed backend URL
+    const API_BASE = window.location.origin + '/api';
+    
+    // Get member ID from URL or use default
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = urlParams.get('id') || 'LE9920';
+    
+    // Fetch member data from API
+    async function loadMemberData() {
+        try {
+            const response = await fetch(`${API_BASE}/members/${memberId}`);
+            if (!response.ok) throw new Error('Member not found');
+            
+            const member = await response.json();
+            
+            // Update welcome message
+            document.querySelector('.welcome-text h1').innerHTML = 
+                `Welcome Back, <span style="color: var(--secondary);">${member.first_name}</span>!`;
+            
+            // Update member ID
+            document.querySelector('.membership-status h3').textContent = 
+                `Member ID: #${member.member_id}`;
+            
+            // Update QR code
+            document.querySelector('.qr-placeholder img').src = 
+                `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${member.member_id}`;
+            
+            // Update plan info
+            document.querySelector('.membership-status p').innerHTML = 
+                `Plan: <span style="color: gold;">${member.plan_type}</span>`;
+            
+            // Update status badge
+            const expiryDate = new Date(member.plan_expiry).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            document.querySelector('.status-badge').textContent = 
+                `${member.plan_status} until ${expiryDate}`;
+            
+            // Update progress stats
+            const weightChange = member.current_weight - member.target_weight;
+            const weightChangeText = weightChange > 0 ? `+${weightChange.toFixed(1)}kg` : `${weightChange.toFixed(1)}kg`;
+            const weightChangeColor = weightChange > 0 ? '#FF1744' : '#00FF00';
+            
+            document.querySelector('.stat-flex:nth-child(1) h4').innerHTML = 
+                `${member.current_weight} kg <span style="color: ${weightChangeColor}; font-size: 0.7rem;">${weightChangeText}</span>`;
+            
+            document.querySelector('.stat-flex:nth-child(2) h4').textContent = 
+                `${member.calories_burnt_week.toLocaleString()} kcal`;
+            
+            document.querySelector('.stat-flex:nth-child(3) h4').textContent = 
+                `${member.attendance_days} / ${member.total_days} Days`;
+            
+            // Update avatar
+            document.querySelector('.user-profile img').src = 
+                `https://ui-avatars.com/api/?name=${member.first_name}+${member.last_name}&background=FF1744&color=fff`;
+            
+        } catch (error) {
+            console.error('Error loading member data:', error);
+        }
+    }
+    
+    // Fetch workouts from API
+    async function loadWorkouts() {
+        try {
+            const response = await fetch(`${API_BASE}/members/${memberId}/workouts`);
+            if (!response.ok) throw new Error('Failed to fetch workouts');
+            
+            const workouts = await response.json();
+            const tbody = document.querySelector('table tbody');
+            
+            if (workouts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-gray);">No workouts recorded yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = workouts.map(workout => {
+                const date = new Date(workout.workout_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                return `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${workout.workout_type}</td>
+                        <td>${workout.duration_minutes} Min</td>
+                        <td>${workout.trainer || 'Self'}</td>
+                        <td style="color: #00FF00;">${workout.status}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+        } catch (error) {
+            console.error('Error loading workouts:', error);
+        }
+    }
+    
+    // Fetch today's classes from API
+    async function loadTodayClasses() {
+        try {
+            const response = await fetch(`${API_BASE}/classes/today`);
+            if (!response.ok) throw new Error('Failed to fetch classes');
+            
+            const classes = await response.json();
+            const container = document.querySelector('.glass-card:nth-child(3)');
+            
+            if (classes.length === 0) {
+                container.innerHTML = '<h3 style="margin-bottom: 20px;">Today at Lifestyle Gym</h3><p style="color: var(--text-gray);">No classes scheduled for today</p>';
+                return;
+            }
+            
+            let html = '<h3 style="margin-bottom: 20px;">Today at Lifestyle Gym</h3>';
+            classes.forEach((cls, index) => {
+                const time = cls.class_time.substring(0, 5);
+                const opacity = index === 0 ? '' : 'opacity: 0.5;';
+                const borderColor = index === 0 ? 'var(--secondary)' : 'var(--text-gray)';
+                
+                html += `
+                    <div style="border-left: 3px solid ${borderColor}; padding-left: 15px; margin-bottom: 15px; ${opacity}">
+                        <p style="font-size: 0.8rem; color: var(--text-gray);">${time}</p>
+                        <p>${cls.class_name}</p>
+                        <p style="font-size: 0.7rem; color: var(--secondary);">Instructor: ${cls.instructor}</p>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+        } catch (error) {
+            console.error('Error loading classes:', error);
+        }
+    }
+    
+    // Load all data when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMemberData();
+        loadWorkouts();
+        loadTodayClasses();
+    });
+</script>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">LIFESTYLE <span style="color:var(--primary)">GYM</span></div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-th-large"></i>
+                <span class="nav-text">Overview</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="nav-text">Classes</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-file-invoice"></i>
+                <span class="nav-text">Payments</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user-cog"></i>
+                <span class="nav-text">Settings</span>
+            </a>
+        </nav>
+        <a href="#" class="nav-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-text">Logout</span>
+        </a>
+    </div>
+
+    <div class="main-content">
+        <div class="header-flex">
+            <div class="welcome-text">
+                <h1>Welcome Back, <span style="color: var(--secondary);">Member</span>!</h1>
+                <p style="color: var(--text-gray);">Get fit and feel great at LIFESTYLE GYM AFRICA LTD in Kicukiro</p>
+            </div>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&background=FF1744&color=fff" style="border-radius: 50%; width: 50px; border: 2px solid var(--primary);">
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <div class="glass-card membership-status">
+                <h3>Member ID: #LSG001</h3>
+                <div class="qr-placeholder">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LE9920" alt="Entry QR">
+                </div>
+                <p style="margin-bottom: 10px;">Plan: <span style="color: gold;">Gold</span></p>
+                <span class="status-badge">Active</span>
+                <button class="btn-renew">Renew Membership</button>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 20px;">Your Progress</h3>
+                <div class="stat-flex">
+                    <div class="stat-icon"><i class="fas fa-weight"></i></div>
+                    <div>
+                        <p style="font-size: 0.8rem; color: var(--text-gray);">Current Weight</p>
+                        <h4>75.0 kg</h4>
+                    </div>
+                </div>
+                <div class="stat-flex">
+                    <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                    <div>
+                        <p style="font-size: 0.8rem; color: var(--text-gray);">Calories Burnt (Week)</p>
+                        <h4>3,500 kcal</h4>
+                    </div>
+                </div>
+                <div class="stat-flex">
+                    <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <p style="font-size: 0.8rem; color: var(--text-gray);">Attendance</p>
+                        <h4>20 / 26 Days</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 20px;">Today at Lifestyle Gym</h3>
+                <div style="border-left: 3px solid var(--secondary); padding-left: 15px; margin-bottom: 15px;">
+                    <p style="font-size: 0.8rem; color: var(--text-gray);">06:00 PM</p>
+                    <p>CrossFit Blast</p>
+                    <p style="font-size: 0.7rem; color: var(--secondary);">Instructor: Patrick Uwimana</p>
+                </div>
+                <div style="border-left: 3px solid var(--text-gray); padding-left: 15px; opacity: 0.5;">
+                    <p style="font-size: 0.8rem; color: var(--text-gray);">07:30 PM</p>
+                    <p>Yoga Flow</p>
+                </div>
+            </div>
+
+            <div class="glass-card full-width-card">
+                <h3>Workout History</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Workout Type</th>
+                            <th>Duration</th>
+                            <th>Trainer</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mar 24</td>
+                            <td>Strength Training</td>
+                            <td>75 Min</td>
+                            <td>Jean Baptiste</td>
+                            <td style="color: #00FF00;">Completed</td>
+                        </tr>
+                        <tr>
+                            <td>Mar 22</td>
+                            <td>HIIT / Cardio</td>
+                            <td>45 Min</td>
+                            <td>Self</td>
+                            <td style="color: #00FF00;">Completed</td>
+                        </tr>
+                        <tr>
+                            <td>Mar 21</td>
+                            <td>Yoga Flow</td>
+                            <td>60 Min</td>
+                            <td>Marie Claire</td>
+                            <td style="color: #00FF00;">Completed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

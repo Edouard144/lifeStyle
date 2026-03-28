@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformations | LEGENDA GYM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF1744;
+            --secondary: #00E5FF;
+            --bg-dark: #0A0A0A;
+            --bg-gray: #1A1A1A;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-white: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 100px 0; }
+
+        h1, h2, h3, .logo {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Header (simplified for standalone page) --- */
+        .page-header {
+            background: var(--bg-gray);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--glass-border);
+            text-align: center;
+        }
+        .page-header .logo { font-size: 1.8rem; }
+        .page-header a { color: var(--text-white); text-decoration: none; transition: var(--transition); }
+        .page-header a:hover { color: var(--primary); }
+
+
+        /* --- Gallery Grid --- */
+        .transformation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .transformation-card {
+            background: var(--bg-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .transformation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--primary); /* subtle glow effect */
+        }
+
+        .image-container {
+            display: flex;
+            position: relative;
+            height: 250px; /* Fixed height for consistent look */
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease-in-out;
+            filter: brightness(0.9);
+        }
+
+        .image-container img.before { border-right: 2px solid var(--bg-dark); } /* Separator */
+
+        .overlay-text {
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            transform: translateY(-50%);
+            text-align: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+            z-index: 10;
+            pointer-events: none; /* Allows clicks to pass through */
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .overlay-text span.before-label {
+            position: absolute;
+            left: 25%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .overlay-text span.after-label {
+            position: absolute;
+            left: 75%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonial {
+            font-style: italic;
+            border-left: 3px solid var(--secondary);
+            padding-left: 15px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .program-tag {
+            display: inline-block;
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 10px;
+            border: 1px solid var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; margin-bottom: 40px; }
+            .transformation-grid { grid-template-columns: 1fr; }
+            .image-container { height: 200px; }
+        }
+
+    </style>
+</head>
+
+<script>
+    // API Base URL - change this to your deployed backend URL
+    const API_BASE = window.location.origin + '/api';
+    
+    // Fetch transformations from API
+    async function loadTransformations() {
+        try {
+            const response = await fetch(`${API_BASE}/transformations`);
+            if (!response.ok) throw new Error('Failed to fetch transformations');
+            
+            const transformations = await response.json();
+            const grid = document.querySelector('.transformation-grid');
+            
+            if (transformations.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-gray); grid-column: 1 / -1;">No transformations available yet</p>';
+                return;
+            }
+            
+            grid.innerHTML = transformations.map(t => `
+                <div class="transformation-card">
+                    <div class="image-container">
+                        <img src="${t.before_image_url}" alt="Before" class="before" loading="lazy">
+                        <img src="${t.after_image_url}" alt="After" class="after" loading="lazy">
+                        <div class="overlay-text">
+                            <span class="before-label">BEFORE</span>
+                            <span class="after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>${t.member_name}</h3>
+                        <p>${t.description}</p>
+                        <span class="program-tag">${t.program_name}</span>
+                        ${t.testimonial ? `<div class="testimonial">"${t.testimonial}"</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Error loading transformations:', error);
+            // Keep static content as fallback
+        }
+    }
+    
+    // Load transformations when page loads
+    document.addEventListener('DOMContentLoaded', loadTransformations);
+</script>
+<body>
+
+    <div class="page-header">
+        <div class="container">
+            <a href="index.html" class="logo">LIFESTYLE <span class="gradient-text">GYM</span></a>
+        </div>
+    </div>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title">REAL PEOPLE. <span class="gradient-text">REAL RESULTS.</span></h2>
+            <p style="text-align: center; color: var(--text-light); max-width: 800px; margin: 0 auto 60px auto;">
+                Witness the incredible transformations achieved by our dedicated members at Lifestyle Gym Africa Ltd. Their hard work, combined with our expert guidance, has led to life-changing results.
+            </p>
+
+            <div class="transformation-grid">
+
+                <div class="transformation-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1579621970795-87facc2f935d?q=80&w=2070&auto=format&fit=crop" alt="Before" class="before" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1599058917215-a926cc40989d?q=80&w=2070&auto=format&fit=crop" alt="After" class="after" loading="lazy">
+                        <div class="overlay-text">
+                            <span class="before-label">BEFORE</span>
+                            <span class="after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Eric Niyonzima: From Desk to Fit</h3>
+                        <p>Eric dropped 25 kgs in 6 months with our customized fat loss program and personal training.</p>
+                        <span class="program-tag">6-Month Fat Loss Program</span>
+                        <div class="testimonial">
+                            "Lifestyle Gym changed my life. The trainers pushed me, and the community motivated me. Highly recommend!" - Eric N.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transformation-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1594917631720-d30d19ce407e?q=80&w=1964&auto=format&fit=crop" alt="Before" class="before" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1601004890693-43401570d588?q=80&w=2070&auto=format&fit=crop" alt="After" class="after" loading="lazy">
+                        <div class="overlay-text">
+                            <span class="before-label">BEFORE</span>
+                            <span class="after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Grace Uwimana: Strength & Confidence</h3>
+                        <p>Grace gained significant muscle mass and boosted her strength with our advanced strength training.</p>
+                        <span class="program-tag">Advanced Strength Training</span>
+                        <div class="testimonial">
+                            "I never thought I could lift this much! The personalized plans at Lifestyle Gym are incredible." - Grace U.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transformation-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1597843232049-7c87093258be?q=80&w=2070&auto=format&fit=crop" alt="Before" class="before" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1570773822204-63303d8d77c1?q=80&w=2070&auto=format&fit=crop" alt="After" class="after" loading="lazy">
+                        <div class="overlay-text">
+                            <span class="before-label">BEFORE</span>
+                            <span class="after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Patrick Habimana: Body Recomposition</h3>
+                        <p>Patrick achieved a lean, athletic physique with a blend of HIIT and targeted nutrition coaching.</p>
+                        <span class="program-tag">HIIT & Nutrition Coaching</span>
+                        <div class="testimonial">
+                            "The holistic approach here is what made the difference. It's not just a gym, it's a wellness center." - Patrick H.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transformation-card">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1533221375330-80d0d8c2378f?q=80&w=2070&auto=format&fit=crop" alt="Before" class="before" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop" alt="After" class="after" loading="lazy">
+                        <div class="overlay-text">
+                            <span class="before-label">BEFORE</span>
+                            <span class="after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Diane Mukamana: Post-Pregnancy Fitness</h3>
+                        <p>Diane safely regained her strength and fitness post-pregnancy with specialized guidance.</p>
+                        <span class="program-tag">Post-Natal Fitness Program</span>
+                        <div class="testimonial">
+                            "The support from the trainers was incredible. I felt safe and empowered throughout my journey." - Diane M.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
