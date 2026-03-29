@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Dashboard | LEGENDA GYM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Member Dashboard | LIFESTYLE GYM</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -37,6 +37,7 @@
             padding: 30px 20px;
             position: fixed;
             height: 100vh;
+            transition: 0.3s ease;
         }
 
         .logo {
@@ -69,6 +70,7 @@
             margin-left: 260px;
             padding: 40px;
             width: calc(100% - 260px);
+            transition: 0.3s ease;
         }
 
         .header-flex {
@@ -148,14 +150,134 @@
             font-weight: 600;
             width: 100%;
             margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-renew:hover {
+            background: var(--primary-dark, #D50000);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .full-width-card { grid-column: span 2; }
         }
 
         @media (max-width: 1024px) {
             .dashboard-grid { grid-template-columns: 1fr; }
             .full-width-card { grid-column: span 1; }
-            .sidebar { width: 80px; padding: 20px 10px; }
+            .sidebar { 
+                width: 80px; 
+                padding: 20px 10px; 
+            }
             .nav-text, .logo span { display: none; }
-            .main-content { margin-left: 80px; width: calc(100% - 80px); }
+            .main-content { 
+                margin-left: 80px; 
+                width: calc(100% - 80px); 
+                padding: 30px;
+            }
+            .nav-item {
+                justify-content: center;
+                padding: 12px;
+            }
+            .nav-item i {
+                margin: 0;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle { display: block; }
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                width: 260px;
+                padding: 30px 20px;
+                z-index: 1000;
+                transition: 0.3s ease;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+            .sidebar.active .nav-text,
+            .sidebar.active .logo span {
+                display: inline;
+            }
+            .sidebar.active .nav-item {
+                justify-content: flex-start;
+                padding: 15px;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 80px 20px 30px;
+            }
+            .header-flex {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .welcome-text h1 { font-size: 1.6rem; }
+            .glass-card { padding: 20px; }
+            .qr-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            th, td {
+                padding: 12px 8px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content { padding: 70px 15px 20px; }
+            .welcome-text h1 { font-size: 1.4rem; }
+            .glass-card { padding: 15px; border-radius: 15px; }
+            .stat-flex { gap: 10px; }
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            .stat-flex h4 { font-size: 1rem; }
+            .stat-flex p { font-size: 0.75rem; }
+            .qr-placeholder {
+                width: 100px;
+                height: 100px;
+                margin: 15px auto;
+            }
+            .status-badge { font-size: 0.7rem; padding: 4px 10px; }
+            .btn-renew { padding: 8px 15px; font-size: 0.9rem; }
+            .user-profile img { width: 40px; }
+        }
+
+        @media (max-width: 400px) {
+            .main-content { padding: 60px 10px 15px; }
+            .welcome-text h1 { font-size: 1.2rem; }
+            .glass-card { padding: 12px; }
+            .logo { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -293,6 +415,27 @@
         loadMemberData();
         loadWorkouts();
         loadTodayClasses();
+    });
+
+    // Mobile sidebar toggle
+    const mobileToggle = document.createElement('button');
+    mobileToggle.className = 'mobile-toggle';
+    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.body.appendChild(mobileToggle);
+
+    const sidebar = document.querySelector('.sidebar');
+    mobileToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && 
+            !sidebar.contains(e.target) && 
+            !mobileToggle.contains(e.target) &&
+            sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+        }
     });
 </script>
 <body>

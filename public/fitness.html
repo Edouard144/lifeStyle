@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>LIFESTYLE GYM AFRICA LTD</title>
     <link rel="icon" type="image/png" href="download.png">
     
@@ -458,11 +458,44 @@
             .price-card.popular { transform: scale(1); }
             .logo-img { height: 32px; }
             .logo { font-size: 1.4rem; }
+            .section-padding { padding: 60px 0; }
+            .section-title { font-size: 2rem; margin-bottom: 30px; }
         }
-        @media (max-width: 576px) {
+
+        @media (max-width: 768px) {
             .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1rem; }
+            .container { padding: 0 15px; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .trainer-grid { grid-template-columns: 1fr; }
+            .trainer-card { height: 350px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .service-card { padding: 30px 20px; }
+            .price-card { padding: 30px 20px; }
+            .form-glass { padding: 25px; }
+            .contact-card { padding: 15px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .modal-box { padding: 30px; margin: 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 { font-size: 2rem; }
             .logo-img { height: 28px; }
             .logo { font-size: 1.2rem; gap: 8px; }
+            .btn { padding: 10px 20px; font-size: 0.9rem; }
+            .section-title { font-size: 1.8rem; }
+            .price-amount { font-size: 2.5rem; }
+            .service-card i { font-size: 2.5rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .social-links { justify-content: center; }
+            .about-img img { box-shadow: 10px 10px 0px var(--primary); }
+        }
+
+        @media (max-width: 400px) {
+            .hero-content h1 { font-size: 1.8rem; }
+            .container { padding: 0 10px; }
+            .section-padding { padding: 40px 0; }
+            .section-title { font-size: 1.5rem; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -499,272 +532,285 @@
         <a href="#contact">Join Now</a>
     </div>
 
+    <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content fade-up">
-            <h1>YOUR <span class="gradient-text">FITNESS</span>, OUR PASSION</h1>
-            <p>Get fit and feel great at LIFESTYLE GYM AFRICA LTD in Kicukiro, Kigali.</p>
-            <a href="#contact" class="btn btn-primary">Start Your Transformation</a>
+        <div class="hero-content">
+            <h1>TRANSFORM YOUR <span class="gradient-text">BODY</span></h1>
+            <p>Join the most advanced fitness facility in Kicukiro, Rwanda. Build strength, burn fat, and achieve your fitness goals with expert guidance.</p>
+            <a href="#pricing" class="btn btn-primary">Start Your Journey</a>
         </div>
     </section>
 
-    <section class="section-padding container" id="about">
-        <div class="about-grid">
-            <div class="about-img fade-up">
-                <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop" alt="Gym Facility" loading="lazy">
-            </div>
-            <div class="about-text fade-up">
-                <h2 class="section-title" style="text-align: left;">ABOUT LIFESTYLE GYM AFRICA LTD</h2>
-                <h3 class="gradient-text">Transforming Lives in Kigali</h3>
-                <p>We provide more than just a workout. We provide a lifestyle change with state-of-the-art facilities and a scientific approach to fitness.</p>
-                <ul class="feature-list" style="margin: 20px 0;">
-                    <li><i class="fas fa-check-circle"></i> 20,000+ Sq Ft Premium Space</li>
-                    <li><i class="fas fa-check-circle"></i> International Certified Trainers</li>
-                    <li><i class="fas fa-check-circle"></i> Advanced Biometric Tracking</li>
-                    <li><i class="fas fa-check-circle"></i> Luxury Locker Rooms & Spa</li>
-                </ul>
-                <a href="#services" class="btn btn-primary">Discover Services</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="services section-padding" id="services">
+    <!-- About Section -->
+    <section class="section-padding" id="about">
         <div class="container">
-            <h2 class="section-title fade-up">OUR PREMIUM <span class="gradient-text">SERVICES</span></h2>
+            <div class="about-grid">
+                <div class="about-img fade-up">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1000&auto=format&fit=crop" alt="Gym Interior">
+                </div>
+                <div class="about-text fade-up">
+                    <h2>WHY CHOOSE <span class="gradient-text">LIFESTYLE GYM?</span></h2>
+                    <p style="margin-bottom: 20px; color: var(--text-light);">
+                        Located in the heart of Kicukiro, Lifestyle Gym Africa Ltd is more than just a gym—it's a community dedicated to helping you achieve your fitness dreams.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> State-of-the-art equipment</li>
+                        <li><i class="fas fa-check-circle"></i> Certified personal trainers</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible membership plans</li>
+                        <li><i class="fas fa-check-circle"></i> Group fitness classes</li>
+                        <li><i class="fas fa-check-circle"></i> Nutrition guidance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-padding services" id="services">
+        <div class="container">
+            <h2 class="section-title fade-up">OUR <span class="gradient-text">SERVICES</span></h2>
             <div class="services-grid">
                 <div class="service-card fade-up">
-                    <i class="fas fa-dumbbell gradient-text"></i>
+                    <i class="fas fa-dumbbell"></i>
                     <h3>Strength Training</h3>
-                    <p>Modern plate-loaded and selectorized machines for maximum muscle growth.</p>
+                    <p>Build muscle and increase strength with our comprehensive weight training programs.</p>
                 </div>
                 <div class="service-card fade-up">
-                    <i class="fas fa-heartbeat gradient-text"></i>
-                    <h3>Cardio Excellence</h3>
-                    <p>High-tech treadmills and cycles with interactive training programs.</p>
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Cardio Programs</h3>
+                    <p>Improve cardiovascular health and burn calories with high-intensity cardio sessions.</p>
                 </div>
                 <div class="service-card fade-up">
-                    <i class="fas fa-music gradient-text"></i>
-                    <h3>Aerobics Classes</h3>
-                    <p>High-energy aerobics sessions with Coach IKRAM and Coach DIDI. Get fit, burn calories, and have fun!</p>
+                    <i class="fas fa-spa"></i>
+                    <h3>Yoga & Flexibility</h3>
+                    <p>Enhance flexibility and mental wellness with our yoga and stretching classes.</p>
                 </div>
                 <div class="service-card fade-up">
-                    <i class="fas fa-child gradient-text"></i>
-                    <h3>Jumping Trampoline</h3>
-                    <p>Fun and effective trampoline workouts with Coach Diane. Morning (8:00-9:00 AM) & Evening (6:30-8:00 PM) classes.</p>
-                </div>
-                <div class="service-card fade-up">
-                    <i class="fas fa-user-ninja gradient-text"></i>
-                    <h3>Elite Personal Training</h3>
-                    <p>One-on-one sessions tailored to your specific metabolic profile.</p>
-                </div>
-                <div class="service-card fade-up">
-                    <i class="fas fa-users gradient-text"></i>
-                    <h3>Group Fitness</h3>
-                    <p>From Zumba to HIIT, find your energy in our group studio classes.</p>
+                    <i class="fas fa-users"></i>
+                    <h3>Group Classes</h3>
+                    <p>Join energetic group fitness classes including CrossFit, Zumba, and more.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding container" id="pricing">
-        <h2 class="section-title fade-up">MEMBERSHIP <span class="gradient-text">PLANS</span></h2>
-        <div class="pricing-grid">
-            <div class="price-card fade-up">
-                <h3>ONE DAY</h3>
-                <div class="price-amount">4,000 RWF</div>
-                <div class="price-period">/ day</div>
-                <ul class="price-features">
-                    <li>Gym Access <i class="fas fa-check"></i></li>
-                    <li>Locker Room <i class="fas fa-check"></i></li>
-                    <li>General Training <i class="fas fa-check"></i></li>
-                    <li>Group Classes <i class="fas fa-xmark"></i></li>
-                </ul>
-                <a href="#contact" class="btn btn-primary" style="width: 100%;">Choose Plan</a>
-            </div>
-            <div class="price-card fade-up">
-                <h3>WEEKLY</h3>
-                <div class="price-amount">12,000 RWF</div>
-                <div class="price-period">/ week</div>
-                <ul class="price-features">
-                    <li>Gym Access <i class="fas fa-check"></i></li>
-                    <li>Locker Room <i class="fas fa-check"></i></li>
-                    <li>General Training <i class="fas fa-check"></i></li>
-                    <li>Group Classes <i class="fas fa-xmark"></i></li>
-                </ul>
-                <a href="#contact" class="btn btn-primary" style="width: 100%;">Choose Plan</a>
-            </div>
-            <div class="price-card popular fade-up">
-                <span class="badge">MOST RECOMMENDED</span>
-                <h3>MONTHLY</h3>
-                <div class="price-amount">35,000 RWF</div>
-                <div class="price-period">/ mo</div>
-                <ul class="price-features">
-                    <li>Gym Access <i class="fas fa-check"></i></li>
-                    <li>Locker Room <i class="fas fa-check"></i></li>
-                    <li>General Training <i class="fas fa-check"></i></li>
-                    <li>Group Classes <i class="fas fa-check"></i></li>
-                </ul>
-                <a href="#contact" class="btn btn-primary" style="width: 100%;">Choose Plan</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="trainers section-padding" id="trainers">
+    <!-- Pricing Section -->
+    <section class="section-padding" id="pricing">
         <div class="container">
-            <h2 class="section-title fade-up">ELITE <span class="gradient-text">COACHES</span></h2>
+            <h2 class="section-title fade-up">MEMBERSHIP <span class="gradient-text">PLANS</span></h2>
+            <div class="pricing-grid">
+                <div class="price-card fade-up">
+                    <h3>Basic</h3>
+                    <div class="price-amount">20,000 RWF</div>
+                    <div class="price-period">per month</div>
+                    <ul class="price-features">
+                        <li><span>Gym Access</span> <i class="fas fa-check"></i></li>
+                        <li><span>Locker Room</span> <i class="fas fa-check"></i></li>
+                        <li><span>Free WiFi</span> <i class="fas fa-check"></i></li>
+                        <li><span>Personal Trainer</span> <i class="fas fa-xmark"></i></li>
+                        <li><span>Group Classes</span> <i class="fas fa-xmark"></i></li>
+                    </ul>
+                    <button class="btn btn-primary">Choose Plan</button>
+                </div>
+                <div class="price-card popular fade-up">
+                    <span class="badge">Most Popular</span>
+                    <h3>Gold</h3>
+                    <div class="price-amount">35,000 RWF</div>
+                    <div class="price-period">per month</div>
+                    <ul class="price-features">
+                        <li><span>Gym Access</span> <i class="fas fa-check"></i></li>
+                        <li><span>Locker Room</span> <i class="fas fa-check"></i></li>
+                        <li><span>Free WiFi</span> <i class="fas fa-check"></i></li>
+                        <li><span>Personal Trainer</span> <i class="fas fa-check"></i></li>
+                        <li><span>Group Classes</span> <i class="fas fa-check"></i></li>
+                    </ul>
+                    <button class="btn btn-primary">Choose Plan</button>
+                </div>
+                <div class="price-card fade-up">
+                    <h3>Premium</h3>
+                    <div class="price-amount">50,000 RWF</div>
+                    <div class="price-period">per month</div>
+                    <ul class="price-features">
+                        <li><span>Gym Access</span> <i class="fas fa-check"></i></li>
+                        <li><span>Locker Room</span> <i class="fas fa-check"></i></li>
+                        <li><span>Free WiFi</span> <i class="fas fa-check"></i></li>
+                        <li><span>Personal Trainer</span> <i class="fas fa-check"></i></li>
+                        <li><span>Nutrition Plan</span> <i class="fas fa-check"></i></li>
+                    </ul>
+                    <button class="btn btn-primary">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section class="section-padding trainers" id="trainers">
+        <div class="container">
+            <h2 class="section-title fade-up">EXPERT <span class="gradient-text">TRAINERS</span></2>
             <div class="trainer-grid">
                 <div class="trainer-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" alt="Coach IKRAM" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=1000&auto=format&fit=crop" alt="Trainer">
                     <div class="trainer-info">
-                        <h3>Coach IKRAM</h3>
-                        <p class="gradient-text">Aerobics Specialist | Get Fit, Burn Calories, Have Fun</p>
+                        <h3>Jean Baptiste</h3>
+                        <p style="color: var(--secondary);">Strength & Conditioning</p>
                     </div>
                 </div>
                 <div class="trainer-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1518459031867-a89b944bffe4?q=80&w=600&auto=format&fit=crop" alt="Coach Diane" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1000&auto=format&fit=crop" alt="Trainer">
                     <div class="trainer-info">
-                        <h3>Coach Diane</h3>
-                        <p class="gradient-text">Jumping Trampoline Expert | Morning & Evening Classes</p>
+                        <h3>Marie Claire</h3>
+                        <p style="color: var(--secondary);">Yoga & Pilates</p>
                     </div>
                 </div>
                 <div class="trainer-card fade-up">
-                    <img src="https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?q=80&w=600&auto=format&fit=crop" alt="Coach DIDI" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1534368270820-9de3d8053204?q=80&w=1000&auto=format&fit=crop" alt="Trainer">
                     <div class="trainer-info">
-                        <h3>Coach DIDI</h3>
-                        <p class="gradient-text">Aerobics Coach | High-Energy Workouts</p>
+                        <h3>Patrick Uwimana</h3>
+                        <p style="color: var(--secondary);">CrossFit & HIIT</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding container" id="contact">
-        <h2 class="section-title fade-up">START YOUR <span class="gradient-text">JOURNEY</span></h2>
-        <div class="contact-grid">
-            <div class="contact-info fade-up">
-                <div class="contact-card">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h4>Visit Us</h4>
-                        <p>KK 15Rd, KK486 ST, Kicukiro, Kigali, Rwanda</p>
+    <!-- Contact Section -->
+    <section class="section-padding" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-up">GET IN <span class="gradient-text">TOUCH</span></h2>
+            <div class="contact-grid">
+                <div class="contact-info fade-up">
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Kicukiro, Rwanda</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+250 788 123 456</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@lifestylegym.rw</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Mon-Sat: 5AM - 10PM</p>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-card">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h4>Call Us</h4>
-                        <p>+250 789 450 433</p>
-                    </div>
+                <div class="form-glass fade-up">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Your Phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        <div id="form-status"></div>
+                    </form>
                 </div>
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h4>Email Us</h4>
-                        <p>lifestylegymafrica@gmail.com</p>
-                    </div>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h4>Hours</h4>
-                        <p>Mon-Sat: 5AM-11PM | Sun: 7AM-9PM</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-glass fade-up">
-                <form id="membership-form">
-                    <input type="hidden" name="_subject" value="New Gym Membership Request - Lifestyle Gym Africa Ltd">
-                    
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="membership" class="form-control" required>
-                            <option value="" disabled selected>Select Membership Plan</option>
-                            <option value="One Day">One Day - 4,000 RWF/day</option>
-                            <option value="Weekly">Weekly - 12,000 RWF/week</option>
-                            <option value="Monthly">Monthly - 35,000 RWF/mo ⭐</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" class="form-control" rows="4" placeholder="Your Message (Optional)"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">
-                        <span>Send Request</span>
-                    </button>
-                    <p id="form-status"></p>
-                </form>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div class="logo">
-                        <img src="download.png" alt="Lifestyle Gym Logo" class="logo-img">
-                        <span>LIFESTYLE <span class="gradient-text">GYM</span></span>
+                    <h4>Lifestyle Gym</h4>
+                    <p style="color: var(--text-gray); font-size: 0.9rem;">
+                        The premier fitness destination in Kicukiro, Rwanda. Transform your body and mind with us.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
-                    <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-gray);">Kigali's elite fitness ecosystem. We provide premium equipment and world-class training to help you reach your goals.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li>Home</li>
+                        <li>About Us</li>
+                        <li>Services</li>
+                        <li>Membership</li>
+                        <li>Contact</li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Services</h4>
                     <ul>
-                        <li>Strength Training</li>
                         <li>Personal Training</li>
-                        <li>Cardio Zone</li>
-                        <li>Yoga Studio</li>
+                        <li>Group Classes</li>
+                        <li>Nutrition Plans</li>
+                        <li>Body Assessment</li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/lifestylegymafrica/" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/lifestylegymrwanda/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://x.com/lifestylegym912" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>Kicukiro, Rwanda</li>
+                        <li>+250 788 123 456</li>
+                        <li>info@lifestylegym.rw</li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Lifestyle Gym Africa Ltd. All Rights Reserved. Designed and Powered by AR BRAINCODE</p>
+                <p>&copy; 2024 Lifestyle Gym Africa Ltd. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Success Modal -->
     <div class="modal-overlay" id="success-modal">
         <div class="modal-box">
             <i class="fas fa-check-circle"></i>
-            <h2 class="gradient-text">Membership Request Received</h2>
-            <p style="margin: 20px 0;">Welcome to Lifestyle Gym Africa Ltd! Your membership request has been received. Our team will contact you within 24 hours to confirm your enrollment.</p>
-            <button class="btn btn-primary" id="close-modal">OK</button>
+            <h3>Message Sent!</h3>
+            <p style="color: var(--text-gray); margin-top: 10px;">
+                Thank you for contacting us. We'll get back to you within 24 hours.
+            </p>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
-        // --- Navigation ---
-        const header = document.getElementById('header');
+        // Mobile Menu Toggle
+        const menuOpen = document.getElementById('menu-open');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuBtn = document.getElementById('menu-open');
-        const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+        
+        menuOpen.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
 
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
         window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
             } else {
@@ -772,74 +818,28 @@
             }
         });
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            menuBtn.querySelector('i').classList.toggle('fa-bars');
-            menuBtn.querySelector('i').classList.toggle('fa-times');
-        });
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                menuBtn.querySelector('i').classList.add('fa-bars');
-                menuBtn.querySelector('i').classList.remove('fa-times');
-            });
-        });
-
-        // --- Active Link Highlighting ---
-        const sections = document.querySelectorAll('section');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // --- Intersection Observer for Animations ---
-        const observerOptions = { threshold: 0.1 };
+        // Fade up animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        fadeElements.forEach(el => observer.observe(el));
 
-        // --- Form Submission & Modal ---
-        const contactForm = document.getElementById('membership-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const statusText = document.getElementById('form-status');
-        const modal = document.getElementById('success-modal');
-        const closeModal = document.getElementById('close-modal');
+        // Contact Form Submission
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const originalContent = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
             const formData = new FormData(contactForm);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                message: `Membership Request: ${formData.get('membership')}\n${formData.get('message') || ''}`
-            };
-
+            const data = Object.fromEntries(formData);
+            
             try {
                 const response = await fetch('/api/contact', {
                     method: 'POST',
@@ -847,31 +847,24 @@
                     body: JSON.stringify(data)
                 });
 
-                if (!response.ok) throw new Error('Submission failed');
-
-                submitBtn.innerHTML = 'Membership Confirmed';
-                submitBtn.style.background = 'var(--secondary)';
-                statusText.innerText = 'Submitted successfully';
-                statusText.style.color = '#00FF00';
-
-                // Show Modal
-                modal.classList.add('active');
-                
-                contactForm.reset();
+                if (response.ok) {
+                    document.getElementById('success-modal').classList.add('active');
+                    contactForm.reset();
+                    formStatus.textContent = '';
+                } else {
+                    formStatus.textContent = 'Failed to send message. Please try again.';
+                    formStatus.style.color = '#FF1744';
+                }
             } catch (error) {
-                statusText.innerText = 'Something went wrong. Please try again.';
-                statusText.style.color = 'var(--primary)';
-                submitBtn.innerHTML = originalContent;
-                submitBtn.disabled = false;
+                formStatus.textContent = 'Network error. Please try again.';
+                formStatus.style.color = '#FF1744';
             }
         });
 
-        // Close Modal
-        closeModal.addEventListener('click', () => modal.classList.remove('active'));
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('active');
-        });
-
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('active');
+        }
     </script>
+
 </body>
 </html>
