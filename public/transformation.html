@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transformations | LEGENDA GYM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Transformations | LIFESTYLE GYM</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -66,7 +66,6 @@
         .page-header a { color: var(--text-white); text-decoration: none; transition: var(--transition); }
         .page-header a:hover { color: var(--primary); }
 
-
         /* --- Gallery Grid --- */
         .transformation-grid {
             display: grid;
@@ -86,13 +85,13 @@
         .transformation-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-            border: 1px solid var(--primary); /* subtle glow effect */
+            border: 1px solid var(--primary);
         }
 
         .image-container {
             display: flex;
             position: relative;
-            height: 250px; /* Fixed height for consistent look */
+            height: 250px;
             overflow: hidden;
         }
 
@@ -104,7 +103,7 @@
             filter: brightness(0.9);
         }
 
-        .image-container img.before { border-right: 2px solid var(--bg-dark); } /* Separator */
+        .image-container img.before { border-right: 2px solid var(--bg-dark); }
 
         .overlay-text {
             position: absolute;
@@ -115,7 +114,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             z-index: 10;
-            pointer-events: none; /* Allows clicks to pass through */
+            pointer-events: none;
             text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
@@ -133,7 +132,6 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
-
 
         .card-content {
             padding: 25px;
@@ -172,12 +170,46 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .section-title { font-size: 2rem; margin-bottom: 40px; }
-            .transformation-grid { grid-template-columns: 1fr; }
-            .image-container { height: 200px; }
+        @media (max-width: 992px) {
+            .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+            .section-padding { padding: 60px 0; }
         }
 
+        @media (max-width: 768px) {
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            .transformation-grid { grid-template-columns: 1fr; gap: 20px; }
+            .image-container { height: 200px; }
+            .card-content { padding: 20px; }
+            .card-content h3 { font-size: 1.3rem; }
+            .card-content p { font-size: 0.85rem; }
+            .testimonial { font-size: 0.85rem; padding-left: 10px; }
+            .program-tag { font-size: 0.7rem; padding: 4px 10px; }
+            .container { padding: 0 15px; }
+            .page-header .logo { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 576px) {
+            .section-title { font-size: 1.5rem; margin-bottom: 25px; }
+            .section-padding { padding: 40px 0; }
+            .image-container { height: 180px; }
+            .card-content { padding: 15px; }
+            .card-content h3 { font-size: 1.2rem; }
+            .card-content p { font-size: 0.8rem; }
+            .overlay-text { font-size: 1.2rem; }
+            .overlay-text span.before-label,
+            .overlay-text span.after-label { font-size: 0.75rem; }
+            .testimonial { font-size: 0.8rem; margin-top: 15px; }
+            .container { padding: 0 10px; }
+            .page-header { padding: 15px 0; }
+            .page-header .logo { font-size: 1.3rem; }
+        }
+
+        @media (max-width: 400px) {
+            .section-title { font-size: 1.3rem; margin-bottom: 20px; }
+            .image-container { height: 160px; }
+            .card-content { padding: 12px; }
+            .card-content h3 { font-size: 1.1rem; }
+        }
     </style>
 </head>
 
@@ -231,7 +263,7 @@
 
     <div class="page-header">
         <div class="container">
-            <a href="index.html" class="logo">LIFESTYLE <span class="gradient-text">GYM</span></a>
+            <a href="fitness.html" class="logo">LIFESTYLE <span class="gradient-text">GYM</span></a>
         </div>
     </div>
 
