@@ -16,6 +16,26 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/health",
+      "dest": "/api/health"
+    },
+    {
+      "src": "/member",
+      "dest": "/public/member.html"
+    },
+    {
+      "src": "/transformations",
+      "dest": "/public/transformation.html"
+    },
+    {
+      "src": "/fitness",
+      "dest": "/public/fitness.html"
+    },
+    {
+      "src": "/",
+      "dest": "/public/fitness.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/$1"
     }
